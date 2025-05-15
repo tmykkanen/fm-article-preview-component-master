@@ -1,1 +1,9 @@
+@import url(https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap);
 @import "tailwindcss";
+
+@theme {
+  --color-fm-dark-blue: hsl(214, 17%, 51%);
+  --color-fm-dark-gray-blue: hsl(217, 19%, 35%);
+  --color-fm-gray-blue: hsl(212, 23%, 69%);
+  --color-fm-light-gray-blue: hsl(210, 46%, 95%);
+}

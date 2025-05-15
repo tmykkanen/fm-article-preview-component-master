@@ -1,16 +1,118 @@
 ---
 import "@styles/global.css";
+import { Image } from "astro:assets";
+import featuredImg from "@images/drawers.jpg";
+import avatar from "@images/avatar-michelle.jpg";
+import iconShare from "@images/icon-share.svg";
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon-32x32.png" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>Frontend Mentor | Article preview component</title>
   </head>
-  <body>
-    <h1>Astro</h1>
+  <body class="base-layout">
+    <article class="base-layout">
+      <Image src={featuredImg} alt={"image of drawers"} class="full-width" />
+      <h1 class="bold">
+        Shift the overall look and feel by adding these wonderful touches to
+        furniture in your home
+      </h1>
+      <p>
+        Ever been in a room and felt like something was missing? Perhaps it felt
+        slightly bare and uninviting. I’ve got some simple tips to help you make
+        any room feel complete.
+      </p>
+      <footer>
+        <div class="flex gap-4">
+          <Image
+            src={avatar}
+            alt={"author image"}
+            width={40}
+            class="rounded-full"
+          />
+          <p>
+            <span class="bold">Michelle Appleton</span>
+            <br />
+            <span class="light">28 Jun 2020</span>
+          </p>
+        </div>
+        <button>
+          <Image src={iconShare} alt={"share icon"} />
+        </button>
+      </footer>
+    </article>
   </body>
 </html>
+
+<style>
+  body {
+    font-family: Manrope;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--color-fm-dark-blue);
+    background-color: var(--color-fm-light-gray-blue);
+  }
+  .bold {
+    font-weight: 700;
+    color: var(--color-fm-dark-gray-blue);
+  }
+  .light {
+    color: var(--color-fm-gray-blue);
+  }
+
+  .base-layout {
+    --max-width: 327px;
+    --padding: 32px;
+
+    display: grid;
+
+    grid-template-columns:
+      minmax(var(--padding), 1fr)
+      min(var(--max-width), 100% - var(--padding) * 2)
+      minmax(var(--padding), 1fr);
+
+    & > * {
+      grid-column: 2/3;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+  }
+
+  article {
+    margin-block-start: 4.625rem;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 0.5rem;
+
+    & h1 {
+      margin-block-start: 2.5rem;
+      margin-block-end: 1.125rem;
+    }
+    & footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-block-start: 2rem;
+      margin-block-end: 1.125rem;
+
+      & button {
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        justify-content: center;
+        background-color: var(--color-fm-light-gray-blue);
+        border-radius: 2rem;
+      }
+    }
+
+    & img {
+      align-self: center;
+    }
+  }
+</style>
