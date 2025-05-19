@@ -1,9 +1,9 @@
 ---
 import "@styles/global.css";
+import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import featuredImg from "@images/drawers.jpg";
 import avatar from "@images/avatar-michelle.jpg";
-import iconShare from "@images/icon-share.svg";
 ---
 
 <html lang="en">
@@ -26,8 +26,8 @@ import iconShare from "@images/icon-share.svg";
         slightly bare and uninviting. I’ve got some simple tips to help you make
         any room feel complete.
       </p>
-      <footer>
-        <div class="flex gap-4">
+      <footer class="full-width" data-social="show">
+        <div class="author">
           <Image
             src={avatar}
             alt={"author image"}
@@ -40,79 +40,94 @@ import iconShare from "@images/icon-share.svg";
             <span class="light">28 Jun 2020</span>
           </p>
         </div>
-        <button>
-          <Image src={iconShare} alt={"share icon"} />
+        <div class="social">
+          <p class="uppercase">Share</p>
+          <Icon name={"mdi:facebook"} width={"1.25rem"} height={"1.25rem"} />
+          <Icon name={"mdi:twitter"} width={"1.25rem"} height={"1.25rem"} />
+          <Icon name={"mdi:pinterest"} width={"1.25rem"} height={"1.25rem"} />
+        </div>
+        <button onclick="toggleSocial()">
+          <Icon name="mdi:share-circle" width={"2rem"} height={"2rem"} />
         </button>
       </footer>
     </article>
   </body>
-</html>
 
-<style>
-  body {
-    font-family: Manrope;
-    font-weight: 500;
-    font-size: 13px;
-    color: var(--color-fm-dark-blue);
-    background-color: var(--color-fm-light-gray-blue);
-  }
-  .bold {
-    font-weight: 700;
-    color: var(--color-fm-dark-gray-blue);
-  }
-  .light {
-    color: var(--color-fm-gray-blue);
-  }
+  <script is:inline>
+    const toggleSocial = () => {
+      const footer = document.querySelector("footer");
+      const currentValue = footer.dataset.social;
+      // console.log("click");
+      // console.log(currentValue);
+      footer.dataset.social = currentValue === "hide" ? "show" : "hide";
+    };
+  </script>
 
-  .base-layout {
-    --max-width: 327px;
-    --padding: 32px;
+  <style>
+    article {
+      margin-block-start: 4.625rem;
+      overflow: hidden;
+      background-color: white;
+      border-radius: 0.5rem;
 
-    display: grid;
+      & h1 {
+        margin-block-start: 2.5rem;
+        margin-block-end: 1rem;
+      }
 
-    grid-template-columns:
-      minmax(var(--padding), 1fr)
-      min(var(--max-width), 100% - var(--padding) * 2)
-      minmax(var(--padding), 1fr);
+      & > p {
+        margin-block-end: 1rem;
+      }
 
-    & > * {
-      grid-column: 2/3;
+      & img {
+        align-self: center;
+      }
     }
-
-    .full-width {
-      grid-column: 1 / -1;
-    }
-  }
-
-  article {
-    margin-block-start: 4.625rem;
-    overflow: hidden;
-    background-color: white;
-    border-radius: 0.5rem;
-
-    & h1 {
-      margin-block-start: 2.5rem;
-      margin-block-end: 1.125rem;
-    }
-    & footer {
+    footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-block-start: 2rem;
-      margin-block-end: 1.125rem;
+      padding-block: 1rem;
+      padding-inline: 2rem;
 
       & button {
         width: 2rem;
         height: 2rem;
         display: flex;
         justify-content: center;
-        background-color: var(--color-fm-light-gray-blue);
         border-radius: 2rem;
       }
     }
 
-    & img {
-      align-self: center;
+    footer[data-social="hide"] {
+      & .author {
+        display: flex;
+        gap: 1rem;
+      }
+      & .social {
+        display: none;
+      }
     }
-  }
-</style>
+    footer[data-social="show"] {
+      background-color: var(--color-fm-dark-gray-blue);
+      padding-block-start: 1.25rem;
+      & .author {
+        display: none;
+      }
+      & .social {
+        display: flex;
+        gap: 1rem;
+        color: var(--color-white);
+        align-items: center;
+        & p {
+          color: var(--color-fm-gray-blue);
+          letter-spacing: 0.75ch;
+          text-transform: uppercase;
+        }
+      }
+      & button {
+        color: var(--color-fm-gray-blue);
+      }
+    }
+  </style>
+</html>

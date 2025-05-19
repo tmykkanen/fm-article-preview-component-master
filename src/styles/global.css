@@ -7,3 +7,39 @@
   --color-fm-gray-blue: hsl(212, 23%, 69%);
   --color-fm-light-gray-blue: hsl(210, 46%, 95%);
 }
+
+body {
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--color-fm-dark-blue);
+  background-color: var(--color-fm-light-gray-blue);
+}
+
+.bold {
+  font-weight: 700;
+  color: var(--color-fm-dark-gray-blue);
+}
+.light {
+  color: var(--color-fm-gray-blue);
+}
+
+.base-layout {
+  --max-width: 327px;
+  --padding: 32px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(var(--padding), 1fr)
+    min(var(--max-width), 100% - var(--padding) * 2)
+    minmax(var(--padding), 1fr);
+
+  & > * {
+    grid-column: 2/3;
+  }
+
+  .full-width {
+    grid-column: 1 / -1;
+  }
+}
